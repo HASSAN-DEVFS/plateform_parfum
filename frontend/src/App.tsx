@@ -1,11 +1,18 @@
-import Inscription from "./Pages/Inscription"
-
+import { Route, Routes } from "react-router"
+import Inscription from "./components/Pages/Inscription"
+import { Toaster } from "./components/ui/sonner"
+import Connexion from "./components/Pages/Connexion"
 function App() {
 
 
   return (
     <>
-     <Inscription/>
+      <Toaster position="top-right" richColors />
+     {/* <Inscription/> */}
+     <Routes>
+      <Route path="/connexion" element={<Connexion/>}/>
+      <Route path="/" element={<Inscription/>}/>
+     </Routes>
     </>
   )
 }
