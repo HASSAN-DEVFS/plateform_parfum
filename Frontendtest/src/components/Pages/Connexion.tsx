@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import bgImage from '@/assets/parfum_background.webp'; 
+import bgImage from '../../assets/parfum_background.webp'; 
 import { toast } from "sonner"
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 const Schema = z.object({
@@ -16,6 +16,7 @@ type FormData = z.infer<typeof Schema>;
 
 const Connexion: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const {
     register,
@@ -24,6 +25,24 @@ const Connexion: React.FC = () => {
   } = useForm<FormData>({
     resolver: zodResolver(Schema),
   });
+
+
+
+// ✅ Lecture du token depuis l'URL (Google OAuth)
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const token = params.get("token");
+    if (token) {
+      localStorage.setItem("token", token);
+      toast.success("Connexion Google réussie !");
+      // Redirection vers dashboard
+      navigate("/dashboard", { replace: true });
+    }
+  }, [location, navigate]);
+
+
+
+
 
   // Connexion avec email + mot de passe
   const onSubmit = async (data: FormData) => {
@@ -37,6 +56,9 @@ const Connexion: React.FC = () => {
       toast.error("Email ou mot de passe incorrect");
     }
   };
+
+
+
 
   // Connexion via Google
   const loginWithGoogle = () => {

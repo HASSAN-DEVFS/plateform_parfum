@@ -1,20 +1,11 @@
-import { Route, Routes } from "react-router"
-import Inscription from "./components/Pages/Inscription"
-import { Toaster } from "./components/ui/sonner"
-import Connexion from "./components/Pages/Connexion"
-function App() {
+import Acceuil from "./components/Pages/Acceuil"
 
-
+function App {
   return (
-    <>
-      <Toaster position="top-right" richColors />
-     {/* <Inscription/> */}
-     <Routes>
-      <Route path="/connexion" element={<Connexion/>}/>
-      <Route path="/" element={<Inscription/>}/>
-     </Routes>
-    </>
+  <>
+  <Acceuil/>
+  </>
   )
 }
 
-export default App
+export default App;
